@@ -1,7 +1,11 @@
+require("dotenv").config(); // Load variables from .env
+
 const express = require("express");
 const app = express();
 const Stripe = require("stripe");
 const cors = require("cors");
+
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Use key from .env
 
 app.use(cors());
 app.use(express.json());
@@ -26,7 +30,7 @@ app.post("/create-checkout-session", async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: "http://localhost:5500/success.html", // or real domain
+      success_url: "http://localhost:5500/success.html",
       cancel_url: "http://localhost:5500/cancel.html",
     });
 
